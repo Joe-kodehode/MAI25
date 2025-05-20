@@ -1,201 +1,159 @@
-// Variables and basic Operators
+// Lesson 2: Conditionals and Related Operators in JavaScript
 
 // --------------------------------------
-// Section 1: Commenting our code
+// Section 1: The typeof Operator
 // --------------------------------------
 
-// hotkey to comment ctrl + *
-// multi-line-comment shift + alt + A
+// let myVariable = {
+//   name: "joe",
+//   age: 37,
+// };
+
+// console.log(typeof myVariable);
+
+// console.log(myVariable);
 
 // --------------------------------------
-// Section 2: console log
+// Section 2: Comparison Operators
 // --------------------------------------
 
-console.log("hello world");
+// These operators compare values and return a boolean (true or false).
+
+// console.log(15 > 20);
+// console.log(15 < 20);
+// console.log(20 <= 20);
+// console.log(20 >= 21);
+
+// The equality (==) operator checks if values are equal (with type conversion):
+// console.log("20" == 20);
+
+// Strict equality (===) operator checks for both value and type:
+// console.log(15 === "15"); // false, because the types differ (number vs string)
+
+// console.log(15 != "15");
+// console.log(15 !== "15");
 
 // --------------------------------------
-// Section 3: Variables and Data Types
+// Section 2: Conditionals with if, if...else, if...else if...else
 // --------------------------------------
 
-// camelCase
-// this is when we write the first word's letter in lowercase and subsequent first letters of words in upper case. it's used for naming variables in JavaScript.
+// let temperature = 11;
 
-// Variables store data values. Here we'll see different types of data.
+// if (temperature >= 25) {
+//   console.log("It's a hot day!");
+// } else if (temperature < 0) {
+//   console.log("It's freezing!");
+// } else {
+//   console.log("it's a fairly normal day");
+// }
 
-// String (text)
-
-let exampleText = "this is my text";
-
-exampleText = "now this is my text";
-
-console.log(exampleText);
-
-// Integer (whole number)
-
-let myNum = 5;
-console.log(myNum);
-
-// Boolean (true or false)
-
-let thisIsTrue = true;
-let thisIsFalse = false;
-
-console.log(thisIsTrue);
-console.log(thisIsFalse);
-
-// Array (list of values)
-
-let exampleArray = ["this is a string", 100, false];
-
-console.log(exampleArray);
-
-console.log(exampleArray[2]);
-
-// Object (holds key value pairs)
-
-let person = {
-  name: "Simen",
-  age: 37,
-  location: "Oslo",
-};
-
-console.log(person);
-
-// Undefined - a lack of data
-
-let undefinedExample;
-console.log(undefinedExample);
-
-// Null - A Purposeful lack of data
-
-let nullExample = null;
-console.log(nullExample);
+// if (temperature > 25) {
+//   console.log("It's warm outside");
+// }
 
 // --------------------------------------
-// Section 4: Declaring variables - Let and Const
+// Section 4: Logical Operators: AND (&&) and OR (||)
 // --------------------------------------
 
-// Using let (value can be redeclared):
+let age = 15;
+let hasLicence = true;
+let suspended = false;
 
-let changeableMessage = "I can change!";
+if (age >= 18 && hasLicence && !suspended) {
+  console.log("You are allowed to drive");
+} else {
+  console.log("You are NOT allowed to drive");
+}
 
-changeableMessage = "I've changed!";
-console.log(changeableMessage);
+// hasLicence    is the same as    hasLicence === true
+// !suspended    is the same as    suspended === false
 
-let healthPoints = 100;
-console.log(healthPoints);
-healthPoints = 50;
-console.log(healthPoints);
+let day = "dsfgsdfg";
 
-// Using const (value can not be redeclared):
+if (day === "Saturday" || day === "Sunday") {
+  console.log("It's the weekend!");
+} else if (
+  day === "Monday" ||
+  day === "Tuesday" ||
+  day === "Wednesday" ||
+  day === "Thursday" ||
+  day === "Friday"
+) {
+  console.log("It's a weekday 😔");
+} else {
+  console.log("An error has occured");
+}
 
-const fixedValue = "I cannot be redeclared!";
+let test = "alsdfjlasdjf";
 
-// fixedValue = "I won't work";
-console.log(fixedValue);
-
-// Note: When you declare a variable with const, you can't reassign or redeclare it in the same scope. However, if the constant holds a mutable object (like an array or an object), the properties or elements of that object can be changed.
-
-const constArray = [4, 6, 7, 3];
-
-constArray[0] = 10;
-console.log(constArray);
+if (typeof test === "string") {
+  console.log("test passed, data is a string");
+} else {
+  console.log("Wrong datatype detected");
+}
 
 // --------------------------------------
-// Section 5: Basic Operators
+// Section 5: Ternary Operator
 // --------------------------------------
 
-// Operators perform calculations or comparisons.
+// The ternary operator is a shortcut for simple if...else statements.
 
-let a = 14;
-let b = 5;
+let isMember = true;
 
-console.log(a + b); // Addition: 15
-console.log(a - b); // Subtraction: 5
-console.log(a * b); // Multiplication: 50
-console.log(a / b); // Division: 2
-console.log(a % b); // Modulus (remainder): 0
+let fee = isMember ? "$5" : "$10";
 
-// Using the + operator with strings to concatenate them:
+// let fee = "";
 
-let firstName = "Jane";
-let lastName = "Doe";
-let age = 34;
-let address = "lsdfjlasdfj";
+// if (isMember) {
+//   fee = "$5";
+// } else {
+//   fee = "$10";
+// }
 
-console.log(firstName + " " + lastName);
+console.log(fee);
 
-let counter = 0;
+// --------------------------------------
+// Section 6: Switch Statement
+// --------------------------------------
 
-// Long way of adding to counter
-counter = counter + 1;
+// A switch statement checks a value against multiple cases.
 
-// Shorthand, better than the long way
-counter += 100;
+let fruit = "Kiwi";
 
-// restricted to only incrementing by 1, great if that's what you want to do
-counter++;
+switch (fruit) {
+  case "apple":
+    console.log("Apples are great!");
+    break;
+  case "banana":
+    console.log("Bananas are a great source of energy!");
+    break;
+  case "orange":
+    console.log("Oranges are full of Vitamin C");
+    break;
+  default:
+    console.log("Unknown fruit detected");
+}
 
-counter = counter - 1;
-counter -= 100;
-counter--;
+// --------------------------------------
+// Section 7: Truthy and Falsey Values
+// --------------------------------------
 
-console.log(counter);
+// In JavaScript, some values are automatically considered "truthy" (true) or "falsey" (false) when used in conditions.
 
-let score = 10;
-console.log("Initial score:", score);
+// let value = ""; empty string is falsey
+// let value = "hello";  filled string is truthy
+// let value = 1; A positive number is true
+// let value = -1; A negative number is true
+// let value = 0; 0 is false
+// let value = null; null is false
+// let value; undefined is false
+// let value = []; empty array is true
+// let value = [1]; filled array is true
+// let value = {}; empty object is true
+let value = NaN;
 
-score += 5;
-console.log("Current score:", score);
-
-score++;
-console.log("Current score:", score);
-
-score -= 3;
-console.log("Current score:", score);
-
-score *= 2;
-console.log("Current score:", score);
-
-score /= 2;
-console.log("Current score:", score);
-
-score++;
-
-score %= 2;
-console.log("Remainders", score);
-
-// Template Strings / Template Literals
-
-let balance = 500;
-
-// const greeting =
-//   "Welcome" +
-//   " " +
-//   firstName +
-//   ", " +
-//   "Your account balance is" +
-//   " " +
-//   balance;
-
-balance--;
-
-balance += 20000;
-
-const betterGreeting = `Welcome ${firstName}, Your account balance is ${balance}`;
-
-console.log(betterGreeting);
-
-// Lesson 1: Variables & Operators
-
-// Lesson 2: Conditionals
-
-// Lesson 3: Functions
-
-// Lesson 4: Methods
-
-// Lesson 5: Loops
-
-// Lesson 6: Objects
-
-// Lesson 7 & 8: DOM Manipulation
+if (value) {
+  console.log("The value is truthy.");
+} else {
+  console.log("The value is falsey.");
+}
