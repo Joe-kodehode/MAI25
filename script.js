@@ -1,167 +1,168 @@
-// Lesson 3: Recap of JavaScript Basics with New Examples
+// Lesson 4: Functions in JavaScript
 
-// ------------------------------
-// Section 1: Variables, Data Types, and Operators
-// ------------------------------
+// A function is a block of code designed to do one specific task. It lets you write code once and reuse it, keeping your program clean and organized. However, the function won't do anything until you call it.
 
-// Scenario: An online store managing product details.
+// ---------------------------------------------------
+// Section 1: Function Declarations and Hoisting
+// ---------------------------------------------------
 
-const storeName = "Tech Haven"; // String
-let productName = "Wireless Earbuds"; //String
-let productPrice = 75; //Number(Integer)
-let productQuantity = 200; // Number
-let isInStock = true; //Boolean
-let productTags = ["audio", "wireless", "accessory"]; //Array
-let discount; //undefined
+sayHello();
 
-// Display variable values using console.log()
-console.log("Store Name:", storeName);
-console.log("Product Name:", productName);
-console.log("Product Price:", productPrice);
-console.log("Product Quantity", productQuantity);
-console.log("In Stock?", isInStock);
-console.log("Product Tags:", productTags);
-console.log("Discount", discount);
-
-// Arithmetic operations: Calculate the total cost for the available quantity.
-productPrice += 10;
-const totalCost = productPrice * productQuantity;
-
-console.log("The total cost of all", productName, "in stock is:", totalCost);
-
-// Compound assignment: Increase the product price by 10.
-// productPrice = productPrice + 10;
-productPrice += 10;
-console.log(productPrice);
-
-// Increment and decrement operators:
-// Increase the quantity by 1.
-productQuantity++;
-console.log(productQuantity);
-
-productQuantity--;
-console.log(productQuantity);
-
-// Using the modulus operator:
-// Find the remainder when total cost is divided by 50.
-
-console.log(totalCost);
-
-const remainder = totalCost % 50;
-console.log("Remainder of Total Cost divided by 50:", remainder);
-
-// ------------------------------
-// Section 2: Conditionals and Logical Operators
-// ------------------------------
-
-// Example: Decide promotion messages based on total basket size.
-
-// Discount if you spend more than 399 (free delivery)
-const basketSize = 300;
-
-if (basketSize >= 399) {
-  console.log("Congratulations! You qualify for free delivery!");
-} else if (basketSize > 200) {
-  console.log(
-    "You're close to getting free delivery!! Spend 399 or more to qualify"
-  );
-} else {
-  console.log(
-    "Sorry, you don't get free delivery, spend at least 399 to qualify"
-  );
+function sayHello() {
+  console.log("Hello World!");
 }
 
-// Logical operators: Using AND (&&) and OR (||)
-// Scenario: Show a special message if the product is in stock and either it's on sale or the quantity is high.
+// ---------------------------------------------------
+// Section 2: Arrow Functions (Not hoisted)
+// ---------------------------------------------------
 
-let isOnSale = false;
+const arrowFunction = () => {
+  console.log("Hello from the arrow function");
+};
 
-if (isInStock && (isOnSale || productQuantity > 100)) {
-  console.log("Special offer! Enjoy exclusive benefits on this purchase!");
-} else {
-  console.log("Sorry, no special offer for you today");
+arrowFunction();
+
+// ---------------------------------------------------
+// Section 3: Return Statements and Scope
+// ---------------------------------------------------
+
+function exampleOne() {
+  console.log("This function logs a message without returning a value");
+}
+exampleOne();
+
+function exampleTwo() {
+  const myMessage = "This function retruns this message";
+  return myMessage;
 }
 
-// Ternary operator: Determine shipping cost based on total cost.
-let shippingCost =
-  basketSize >= 250 ? "You get free shipping" : "50nok shipping fee";
+const returnedData = exampleTwo();
 
-console.log(shippingCost);
-// let totalCost = 200;
-// if (shippingCost >= 250) {
-//   console.log("You get free shipping!");
-// } else {
-//   console.log("50nok shipping fee");
-// }
+// console logging function calls will log the return value of the function
+console.log(returnedData);
 
-// Switch statement: Display messages based on the product category.
+// ---------------------------------------------------
+// Section 4: Functions with Parameters
+// ---------------------------------------------------
 
-let category = "electronics";
-
-switch (category) {
-  case "audio":
-    console.log("This product is in our Audio department");
-    break;
-  case "accessory":
-    console.log("This product is in our Accessory department");
-    break;
-  case "gadget":
-    console.log("This product is in our Gadgets collection.");
-    break;
-  default:
-    console.log("This product belongs to a general category");
+// Example 1 - Hard coding
+function add() {
+  return 3 + 4;
 }
 
-// ------------------------------
-// Section 3: typeof Operator and Truthy/Falsey Values
-// ------------------------------
+console.log(add());
 
-// Using the typeof operator to check data types:
-
-console.log(typeof storeName); // string
-console.log(typeof productPrice); //number
-console.log(typeof isInStock); // boolean
-console.log(typeof productTags); // object
-
-let randomVariable = "50";
-
-if (typeof randomVariable === "number") {
-  console.log("The variable is a number data type");
-} else if (typeof randomVariable === "string") {
-  console.log("The variable is a string data type");
+// Example 2 - Soft coding (dynamic)
+function minus(num1, num2) {
+  console.log(num1);
+  console.log(num2);
+  return num1 - num2;
 }
 
-const emptyStr = "";
-if (emptyStr) {
-  console.log("Empty string is truthy");
-} else {
-  console.log("Empty string is falsey");
+console.log(minus(3, 4));
+console.log(minus(10, 3));
+console.log(minus(20, 6));
+console.log(minus(3, 423478));
+
+// const greeter = (name, time) => {
+//   return `Good ${time} ${name}`;
+// };
+
+// Because we're using an arrow function and because it only has 1 line of code, we can remove the curly brackets and return keyword. This is called implied
+const greeter = (name, time, age) => `Good ${time} ${name}, your age is ${age}`;
+
+const userData = {
+  userName: "Joe",
+  userAge: "37",
+};
+
+console.log(greeter(userData.userName, "morning", userData.userAge));
+// console.log(greeter("Bill", "evening"));
+// console.log(greeter("Glen", "afternoon"));
+
+// ---------------------------------------------------
+// Section 5: Implicit Return in Arrow Functions
+// ---------------------------------------------------
+
+// Arrow function with an implicit return (no curly braces or return statemet needed).
+
+// Standard arrow function
+// const adder = (num1, num2) => {
+//   return num1 + num2
+// };
+
+// Same function with implicit return
+const adder = (num1, num2) => num1 + num2;
+
+console.log(adder(2, 2));
+
+// ---------------------------------------------------
+// Section 6: Calculator Function Using Switch Statement
+// ---------------------------------------------------
+
+function calculator(num1, num2, operator) {
+  switch (operator) {
+    case "+":
+      return num1 + num2;
+    case "-":
+      return num1 - num2;
+    case "/":
+      return num1 / num2;
+    case "*":
+      return num1 * num2;
+    default:
+      return "Invalid operator detected";
+  }
 }
 
-// Example with a non-empty string (truthy)
-const greeting = "Welcome!";
-if (greeting) {
-  console.log("Greeting detected");
-} else {
-  console.log("No greeting detected");
-}
+console.log(calculator(10, 43, "+"));
+console.log(calculator(3, 4, "-"));
+console.log(calculator(7, 4, "/"));
+console.log(calculator(4, 4, "*"));
 
-const zeroValue = 0;
-if (zeroValue) {
-  console.log("0 is truthy");
-} else {
-  console.log("0 is falsey");
-}
+// ---------------------------------------------------
+// Section 7: Updating a Global Variable via a Function
+// ---------------------------------------------------
 
-// --------------------------------------------------
-// Section 4: Template Literals // Template Strings Recap
-// --------------------------------------------------
+let HP = 100;
 
-const firstName = "Alex";
-const lastName = "Miller";
+const updateHP = (amount, direction) => {
+  if (direction === "up") {
+    HP += amount;
+  } else if (direction === "down") {
+    HP -= amount;
+    if (HP <= 0) {
+      console.log("You are dead, try again");
+      HP = 100;
+    }
+  }
+};
 
-const welcomeMsg =
-  "Welcome" + " " + firstName + " " + lastName + " " + "Enjoy shopping with us";
-const betterWelcomeMsg = `Welcome ${firstName} ${lastName} Enjoy shopping with us`;
+console.log(HP);
+updateHP(50, "up");
+console.log(HP);
+updateHP(200, "down");
+console.log(HP);
 
-console.log(betterWelcomeMsg);
+// ---------------------------------------------------
+// Section 8: Using Template Literals and Ternary Operator in a Function
+// ---------------------------------------------------
+
+const fruits = ["Banana", "Apple", "Pear", "Kiwi"];
+const drinks = ["Water", "Soda", "Saft", "Tea", "Coffee"];
+
+const checkItem = (item, array) => {
+  let itemIncluded = array.includes(item) ? "does" : "doesn't";
+
+  return `The array ${itemIncluded} includes ${item}`;
+};
+
+console.log(checkItem("Pear", fruits));
+console.log(checkItem("Saft", drinks));
+console.log(checkItem("Cola", drinks));
+console.log(checkItem("Tea", drinks));
+console.log(checkItem("Apple", fruits));
+
+// Using implicit return (no return / curly brackets)
+// const checkItem = (item) =>
+//   `The array ${fruits.includes(item) ? "does" : "doesn't"} include ${item}`;
