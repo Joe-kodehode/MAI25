@@ -1,57 +1,182 @@
-// Lesson 7: JavaScript Loops
-
-//DRY - Don't Repeat Yourself
-
-// A loop is a way to repeat code without writing it multiple times.
+// Lesson 8: JavaScript Objects
 
 // --------------------------------------
-// Section 1: Why We Use Loops
+// Section 1: What is an Object?
 // --------------------------------------
 
-const names = ["Tom", "Eric", "Jessica", "Joe"];
+// An object stores related data using key-value pairs.
 
-//  when does the loop start; when will the loop end; what do we do in between loops
-for (let i = 0; i < names.length; i++) {
-  console.log(`Hei ${names[i]}`);
+const person = {
+  name: "Alice",
+  age: 28,
+  job: "Designer",
+};
+
+console.log(person); // logs the entire object
+console.log(person.name); // access with dot notation
+console.log(person["job"]); // access with bracket notation
+
+// --------------------------------------
+// Section 2: Creating and Modifying Objects
+// --------------------------------------
+
+person.country = "Norway"; // Create a new key-value pair in an already existing object
+person.age = 29; //Modify an existing value
+
+console.log(person);
+
+// --------------------------------------
+// Section 3: Looping Through an Object using 'for in' loop
+// --------------------------------------
+
+// const key = "job";
+
+// console.log(person[key]);  //Dynamic key access
+
+for (let key in person) {
+  console.log(key); //key
+  console.log(person[key]); // value
+}
+
+// Dynamic key access is useful when you don’t know the property name in advance, like when looping through an object or handling user input.
+
+// --------------------------------------
+// Section 4: Nested Objects and Arrays
+// --------------------------------------
+
+const userData = {
+  firstName: "Olav",
+  lastName: "Hansen",
+  age: 31,
+  male: true,
+  hobbies: ["Golf", "Hiking", "Cinema"],
+  address: {
+    streetName: "Solskinnsgaten",
+    streetNumber: 38,
+    postCode: 4050,
+  },
+  position: "Manager",
+};
+
+console.log(userData.address.postCode);
+
+// --------------------------------------
+// Section 5: Arrays of Objects
+// --------------------------------------
+
+const products = [
+  { productName: "Shirt", productId: 746352, stock: 32 },
+  { productName: "Pants", productId: 745642, stock: 5 },
+  { productName: "Socks", productId: 749345, stock: 22 },
+];
+
+for (let product of products) {
+  console.log(
+    `Product: ${product.productName} has this many left in stock: ${product.stock} and its product ID is: ${product.productId}`
+  );
 }
 
 // --------------------------------------
-// Section 2: The for Loop
+// Section 6: Descriptive Sentences with Objects
 // --------------------------------------
 
-// The for loop lets us alter the rules. Where does the loop start, when does it end, does it increment forwards, backwards or by more than 1 at a time.
-for (let i = 10; i >= 1; i--) {
-  console.log(i);
-}
+const people = [
+  {
+    name: "Thomas",
+    male: true,
+    age: 23,
+    hobbies: ["cycling", "football", "pool"],
+  },
+  {
+    name: "Susan",
+    male: false,
+    age: 26,
+    hobbies: ["jogging", "travelling", "dancing"],
+  },
+  {
+    name: "Monica",
+    male: false,
+    age: 21,
+    hobbies: ["skateboarding", "guitar", "concerts"],
+  },
+  { name: "Avery", male: true, age: 28, hobbies: ["coding", "games", "memes"] },
+  {
+    name: "Phillip",
+    male: true,
+    age: 24,
+    hobbies: ["boxing", "wrestling", "mma"],
+  },
+  { name: "Otto", male: true, age: 36, hobbies: ["movies", "cinema", "music"] },
+  {
+    name: "Annabelle",
+    male: false,
+    age: 30,
+    hobbies: ["makeup", "fashion", "shopping"],
+  },
+  {
+    name: "Cathy",
+    male: false,
+    age: 18,
+    hobbies: ["design", "drawing", "css", "coding"],
+  },
+];
 
-const fruits = ["Apple", "Banana", "Cherry"];
+//Let's write a 'for of' loop which console logs the persons name, age, if they are a man or woman, a random hobby.
+// For example: "Cathy is a 18-year-old woman who enjoys drawing"
 
-for (let i = 0; i < fruits.length; i++) {
-  console.log(fruits[i]); // logs each fruit
-}
+for (let person of people) {
+  let randomNumber = Math.floor(Math.random() * person.hobbies.length);
 
-// "for of" loop
+  //   console.log(person.hobbies[randomNumber]);
 
-for (let fruit of fruits) {
-  console.log(fruit);
+  console.log(
+    `${person.name} is a ${person.age} year-old ${
+      person.male ? "male" : "woman"
+    } who enjoys ${person.hobbies[randomNumber]}`
+  );
 }
 
 // --------------------------------------
-// Section 3: Combining Loops with Functions and Methods
+// Section 7: Working with Object Data
 // --------------------------------------
 
-const peopleNames = ["alice", " BOB ", "charlie", "dEbBy"];
-const drinkNames = ["coke", "sprite", "solo"];
+// Calculate total age of all people
+let totalAge = 0;
+for (let person of people) {
+  totalAge += person.age;
+}
+console.log(`Total combined age: ${totalAge}`);
 
-function greetEveryone(nameArray) {
-  let cleanedNames = [];
+// --------------------------------------
+// Section 8: Combining Hobbies with Spread Syntax
+// --------------------------------------
 
-  for (let i = 0; i < nameArray.length; i++) {
-    let name = nameArray[i].trim().toLowerCase();
-    cleanedNames.push(name);
-  }
+const allHobbies = [];
 
-  return cleanedNames.join(" ");
+for (let person of people) {
+  allHobbies.push(...person.hobbies); // spreads each hobby into the array
 }
 
-console.log(greetEveryone(peopleNames));
+console.log(allHobbies); // all hobbies flattened into one array
+
+// --------------------------------------
+// Section 9: Adding New Properties to Objects in an Array
+// --------------------------------------
+
+for (let person of people) {
+  person.title = person.male ? "Mr" : "Ms";
+}
+
+console.log(people);
+
+// --------------------------------------
+// Summary
+// --------------------------------------
+
+// ✅ Objects use key-value pairs to store data.
+// ✅ Dot and bracket notation let you access or update values.
+// ✅ Objects can contain arrays, other objects, or even functions.
+// ✅ You can loop through objects with for...in.
+// ✅ Arrays can contain objects and be used with loops.
+// ✅ Spread syntax can flatten nested arrays.
+// ✅ You can dynamically add or modify object properties.
