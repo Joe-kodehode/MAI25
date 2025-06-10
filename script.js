@@ -1,206 +1,193 @@
-// Lesson 9: Recap — Loops & Objects
+// DOM Manipulation with JavaScript
 
 // --------------------------------------
-// Section 1: Looping Through Arrays
+// Section 1: What is the DOM?
 // --------------------------------------
 
-const fruitNames = [
-  "Apple",
-  "Banana",
-  "Mango",
-  "Grapes",
-  "Pear",
-  "Peach",
-  "Cherrys",
+// The DOM (Document Object Model) is how JavaScript interacts with HTML on a web page.
+// It turns your HTML into a structure of objects you can access and change using JS.
+
+const button = document.getElementById("my-button"); // targets element with id="my-button"
+console.log(button);
+
+const heading = document.querySelector("h1");
+console.log(heading);
+
+const items = document.querySelectorAll(".list-item");
+console.log(items);
+
+// --------------------------------------
+// Section 3: Changing Text or HTML Content
+// --------------------------------------
+
+// textContent sets or gets the plain text inside an element (no HTML tags)
+heading.textContent = "Welcome to the DOM lesson!";
+
+// innerHTML sets or gets the HTML inside an element (can include tags)
+heading.innerHTML = "<span style='color:red'>DOM Manipulation</span>";
+
+// ⚠️ Security Warning:
+// Be careful when using innerHTML with content that comes from the user or an external source.
+// It can create a security risk called XSS (Cross-Site Scripting).
+// Always use textContent if you're not intentionally adding HTML tags.
+
+// --------------------------------------
+// Section 4: Changing Styles
+// --------------------------------------
+
+heading.style.fontSize = "36px";
+button.style.color = "blue";
+heading.style.textTransform = "uppercase";
+heading.style.cssText = "text-transform: lowercase";
+
+// --------------------------------------
+// Section 5: Creating and Adding Elements
+// --------------------------------------
+
+// Create a new <p> element
+const styledParagraph = document.createElement("p");
+const styledParagraph2 = document.createElement("p");
+
+styledParagraph.classList.add("paragraphStyling");
+styledParagraph2.classList.add("paragraphStyling");
+
+styledParagraph.textContent = "A brand new paragraph!";
+styledParagraph2.textContent = "A brand new paragraph!";
+
+document.body.append(styledParagraph, styledParagraph2);
+
+// 📌 append vs appendChild:
+// - appendChild() only accepts **DOM nodes** (elements)
+// - append() can accept **DOM nodes OR text**, and also multiple things at once
+
+// Creating an image element and adding attributes
+const image = document.createElement("img");
+image.src =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/320px-Red_Apple.jpg";
+
+image.setAttribute("alt", "A red apple");
+
+image.classList.add("apple-img");
+
+document.body.prepend(image);
+
+const midParagraph = document.createElement("p");
+midParagraph.textContent = "I'm in the middle!";
+
+const target = document.querySelector("p:nth-of-type(2)");
+
+document.body.insertBefore(midParagraph, target);
+
+// 📌 Summary of placement methods:
+// append() → adds to the end
+// prepend() → adds to the beginning
+// insertBefore(newNode, referenceNode) → inserts before a specific node
+
+// 🧠 What is a DOM node?
+// A DOM node is any single part of the document tree:
+// - An element (like <p> or <div>)
+// - A text node (plain text)
+// - A comment node (<!-- like this -->)
+// Most of the time, when you're working with elements, you're using element nodes.
+
+// Add a new list item to an existing list
+
+const list = document.querySelector("ul");
+
+const newItem = document.createElement("li");
+
+newItem.textContent = "item4";
+
+list.append(newItem);
+
+// --------------------------------------
+// Section 6: Removing Elements
+// --------------------------------------
+
+const firstListItem = document.querySelector("li");
+
+list.removeChild(firstListItem);
+
+// --------------------------------------
+// Section 7: Parent and Child Relationships
+// --------------------------------------
+
+// You can move between elements in the DOM using parent/child/sibling relationships
+
+console.log(list.parentElement);
+console.log(list.children);
+console.log(list.lastElementChild);
+console.log(list.firstElementChild);
+
+// --------------------------------------
+// Section 8: classList Methods
+// --------------------------------------
+
+const box = document.createElement("div");
+
+// add class
+box.classList.add("active", "box", "hidden");
+
+// remove class
+box.classList.remove("hidden");
+
+//Toggle a class
+box.classList.toggle("darkmode");
+
+document.body.append(box);
+
+console.log(box.classList.contains("darkmode"));
+
+// --------------------------------------
+// Section 9: Creating a List in a Loop
+// --------------------------------------
+
+const favoriteMovies = [
+  "Inception",
+  "The Matrix",
+  "The Lord of the Rings",
+  "Spirited Away",
+  "Interstellar",
+  "Gladiator",
+  "The Martian",
+  "Star Wars",
+  "The room",
 ];
 
-// 'for' loop, allows the possibility to change starting index, when we end and how we increment.
+// Create a Heading
+const movieHeading = document.createElement("h2");
+movieHeading.textContent = "My favorite movies";
+movieHeading.classList.add("section-heading");
+document.body.append(movieHeading);
 
-for (let i = 0; i < fruitNames.length; i++) {
-  console.log(fruitNames[i]);
+// Create the <ul> element
+const movieList = document.createElement("ul");
+movieHeading.classList.add("ul-styling");
+document.body.append(movieList);
+
+// Loop through the array and create <li> elements
+
+for (let movie of favoriteMovies) {
+  const newLi = document.createElement("li");
+  newLi.textContent = movie;
+  newLi.style.fontSize = `${Math.floor(Math.random() * 30) + 10}px`;
+  movieList.append(newLi);
 }
 
-for (let fruit of fruitNames) {
-  const newFruit = fruit.toUpperCase();
-  console.log(newFruit);
-}
-
-// --------------------------------------
-// Section 2: Looping with Conditions
-// --------------------------------------
-
-const numbers = [12, 5, 8, 13, 44, 313, 22];
-
-for (let number of numbers) {
-  if (number < 10) continue;
-  if (number > 100) break;
-
-  console.log(number);
-}
-
-// --------------------------------------
-// Section 3: The while Loop (Guessing Game)
-// --------------------------------------
-
-// Random number between 1-10
-const randomNumber = Math.floor(Math.random() * 10) + 1;
-let guess = 0;
-
-// While loop runs while the condition is true and will stop once it's false.
-while (guess !== randomNumber) {
-  guess++;
-  console.log(`Guessing ${guess}`);
-  if (guess === randomNumber) {
-    console.log(`Correct! The number was: ${guess}`);
-  }
+//Function that changes background color on the body when button is clicked
+function toggleBgColor() {
+  document.body.classList.toggle("darkmode");
 }
 
 // --------------------------------------
-// Section 4: Basic Object Review
+// Summary
 // --------------------------------------
 
-const book = {
-  title: "The Hobbit",
-  author: "J.R.R. Tolkien",
-  pages: 310,
-};
-
-// Creating a new key-value pair in an existing object
-book.published = 1937;
-book.pages = 320;
-
-console.log(book);
-console.log(book.title); // dot notation
-console.log(book["author"]); // bracket notation
-
-// --------------------------------------
-// Section 5: Looping Through an Object and using Dynamic keys
-// --------------------------------------
-
-for (let key in book) {
-  console.log(key); // logs each key in the loop
-  console.log(book[key]); // logs each value in the loop using bracket notation
-}
-
-// --------------------------------------
-// Section 6: Array of Objects – Fruit Data
-// --------------------------------------
-
-const fruits = [
-  {
-    name: "Apple",
-    color: "Red",
-    calories: 52,
-    pricePerKg: 3.5,
-    countryOfOrigin: "USA",
-  },
-  {
-    name: "Banana",
-    color: "Yellow",
-    calories: 89,
-    pricePerKg: 1.2,
-    countryOfOrigin: "Ecuador",
-  },
-  {
-    name: "Orange",
-    color: "Orange",
-    calories: 47,
-    pricePerKg: 2.8,
-    countryOfOrigin: "Spain",
-  },
-  {
-    name: "Strawberry",
-    color: "Red",
-    calories: 32,
-    pricePerKg: 6.0,
-    countryOfOrigin: "Mexico",
-  },
-  {
-    name: "Mango",
-    color: "Orange",
-    calories: 60,
-    pricePerKg: 4.0,
-    countryOfOrigin: "India",
-  },
-  {
-    name: "Grapes",
-    color: "Green",
-    calories: 69,
-    pricePerKg: 2.5,
-    countryOfOrigin: "Italy",
-  },
-  {
-    name: "Pineapple",
-    color: "Brown",
-    calories: 50,
-    pricePerKg: 3.0,
-    countryOfOrigin: "Costa Rica",
-  },
-];
-
-// Pineapple is a brown fruit from Costa Rica
-
-for (let fruit of fruits) {
-  console.log(
-    `${fruit.name} is a ${fruit.color} fruit from ${fruit.countryOfOrigin}`
-  );
-}
-
-// --------------------------------------
-// Section 7: Find the Cheapest Fruit
-// --------------------------------------
-
-// loop over the array of objects
-// make a variable to store the cheapest which updates if a new cheapest is found during the loop
-
-let cheapest = null;
-let lowestPrice = Infinity;
-
-for (let fruit of fruits) {
-  if (fruit.pricePerKg < lowestPrice) {
-    lowestPrice = fruit.pricePerKg;
-    cheapest = fruit.name;
-  }
-}
-
-console.log(cheapest);
-console.log(lowestPrice);
-
-// --------------------------------------
-// Section 8: Adding and Removing Properties in a Loop
-// --------------------------------------
-
-// Add a "good" property to every fruit
-for (let fruit of fruits) {
-  fruit.good = true;
-}
-
-console.log(fruits); // now all have "good: true"
-
-// Remove the "good" property
-for (let fruit of fruits) {
-  delete fruit.good;
-}
-
-console.log(fruits); // back to original
-
-// --------------------------------------
-// Section 9: Object in Function
-// --------------------------------------
-
-function describeFruit(fruit) {
-  return `${fruit.name} contains ${fruit.calories} calories per 100g and costs ${fruit.pricePerKg} kr. per kg.`;
-}
-
-console.log(describeFruit(fruits[0]));
-
-// --------------------------------------
-// Section 10: Summary
-// --------------------------------------
-
-// ✅ Use loops to repeat tasks or go through arrays and objects.
-// ✅ for...of is great for arrays; for...in is used for object keys.
-// ✅ Objects store data in key-value pairs.
-// ✅ Arrays can contain multiple objects.
-// ✅ Loops can combine with logic, conditions, and functions.
-// ✅ You can add, modify, or delete properties dynamically.
+// ✅ The DOM is how JavaScript connects to HTML
+// ✅ Use querySelector, getElementById, etc. to select elements
+// ✅ Use .textContent, .innerHTML, and .style to change content and appearance
+// ✅ Use createElement + appendChild to add elements
+// ✅ Use removeChild to delete elements
+// ✅ DOM has a parent/child/sibling structure you can navigate
+// ✅ classList helps manage CSS classes
+// ✅ You can attach event listeners like click or mouseover

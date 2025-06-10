@@ -1,0 +1,17 @@
+.paragraphStyling {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+
+  font-weight: bold;
+
+  font-size: 50px;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+}
+
+.darkmode {
+  background-color: blue;
+}
